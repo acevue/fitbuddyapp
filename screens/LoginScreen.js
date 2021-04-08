@@ -17,6 +17,11 @@ import { utils } from '@react-native-firebase/app';
 
 const LoginScreen = ({ navigator }) => {
 
+  //Added. 4/8/21
+  //Need to show more to edit options for the app.
+  const _handleMore = () => console.log('Shown more');
+
+
   var broly = 0;
   const firestoreRef = firestore().collection('Users/' + auth().currentUser.uid + '/Status');
   const afd = storage();
@@ -128,6 +133,10 @@ const LoginScreen = ({ navigator }) => {
   // const reference = firebase.storage().ref('black-t-shirt-sm.png');
 
 
+  const updateProfile = () => {
+    console.log("TODO: Update Profile Picture")
+  }
+
   const grabMedia = () => {
     console.log(afd);
     afd.ref('images').putFile('https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.pinterest.com%2Fpin%2F822821794398992113%2F&psig=AOvVaw0S27u-NNxG-70IxTXSIEI3&ust=1593518905992000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCKC13NT-puoCFQAAAAAdAAAAABAD');
@@ -202,6 +211,8 @@ const LoginScreen = ({ navigator }) => {
       });
   }
 
+
+
   if (data.isLoading === true) {
     return (
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
@@ -238,19 +249,24 @@ const LoginScreen = ({ navigator }) => {
 
         <View style={styles.wallpaper}>
           <Image
-            style={styles.wallpaperImage}
-            source={require('../images/wallpaper.jpg')}
-            resizeMode='cover'
+          //TODO:
+          //style={styles.wallpaperImage}
+          //source={require('../images/wallpaper.jpg')}
+          //resizeMode='cover'
           />
         </View>
       </View >
       <View style={styles.midSection}>
         <View style={styles.avatar}>
-          <Avatar
-            source={require('../images/therock.jpg')}
-            rounded
-            size={180}
-          />
+          <View style={{ marginBottom: 8 }}>
+            <Avatar
+              source={require('../images/profile_pic.jpg')}
+              rounded
+              size={180}
+              onPress={() => alert("working")}
+            />
+          </View>
+
           <Text style={styles.name}>John Doe</Text>
           <View style={styles.followers}>
             <Text style={{ flex: 1, paddingLeft: 25 }}>150 Followers</Text>
@@ -301,7 +317,7 @@ const LoginScreen = ({ navigator }) => {
               <MaterialIcon name="map-marker" size={24} color="#61c92c" />
             </View>
             <View style={{ flex: 7, justifyContent: 'center' }}>
-              <Text>Checked in at Planet Fitness on Greenfield Avedzvzdvzdvvdzvdzvvzvdzvzv</Text>
+              <Text>Checked in at Planet Fitness on Greenfield !</Text>
             </View>
             <View style={{ flex: 1, justifyContent: 'center', alignItems: 'flex-end' }}>
               <TouchableOpacity>
@@ -327,7 +343,7 @@ const LoginScreen = ({ navigator }) => {
               <MaterialIcon name="map-marker" size={24} color="#61c92c" />
             </View>
             <View style={{ flex: 7, justifyContent: 'center' }}>
-              <Text>Checked in at Planet Fitness on Greenfield Avedzvzdvzdvvdzvdzvvzvdzvzv</Text>
+              <Text>Checked in at Planet Fitness on Greenfield!</Text>
             </View>
             <View style={{ flex: 1, justifyContent: 'center', alignItems: 'flex-end' }}>
               <TouchableOpacity>
@@ -352,7 +368,7 @@ const LoginScreen = ({ navigator }) => {
               <MaterialIcon name="map-marker" size={24} color="#61c92c" />
             </View>
             <View style={{ flex: 7, justifyContent: 'center' }}>
-              <Text>Checked in at Planet Fitness on Greenfield Avedzvzdvzdvvdzvdzvvzvdzvzv</Text>
+              <Text>Checked in at Planet Fitness on Greenfield !</Text>
             </View>
             <View style={{ flex: 1, justifyContent: 'center', alignItems: 'flex-end' }}>
               <TouchableOpacity>
@@ -369,7 +385,7 @@ const LoginScreen = ({ navigator }) => {
           />}
         </View>
       </View>
-    </View>
+    </View >
   );
 }
 
