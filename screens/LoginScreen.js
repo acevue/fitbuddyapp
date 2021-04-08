@@ -17,8 +17,7 @@ import { utils } from '@react-native-firebase/app';
 
 const LoginScreen = ({ navigator }) => {
 
-  //Added. 4/8/21
-  //Need to show more to edit options for the app.
+  //Hello
   const _handleMore = () => console.log('Shown more');
 
 
