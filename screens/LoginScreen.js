@@ -268,7 +268,7 @@ const LoginScreen = ({ navigator }) => {
           />
           <TouchableOpacity
             onPress={() => postStatus(data.status, 'photo')}
-          //  onPress={()=> grabStatus()}
+          // onPress={() => grabStatus()}
           >
             <Text style={{ marginLeft: 5, borderRadius: 5, padding: 5, backgroundColor: '#9bd494' }}>Post</Text>
           </TouchableOpacity>
@@ -360,11 +360,14 @@ const LoginScreen = ({ navigator }) => {
               </TouchableOpacity>
             </View>
           </View>
+
+        </ScrollView>
+        <View style={{ marginTop: 10, marginBottom: 5 }}>
           {<Button
             title='signout'
             onPress={() => signOut()}
           />}
-        </ScrollView>
+        </View>
       </View>
     </View>
   );
