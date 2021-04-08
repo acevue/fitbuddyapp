@@ -1,5 +1,5 @@
-import React, {useEffect} from 'react';
-import { TextInput, Modal, Animated, TouchableOpacity, Text, Button, View , StyleSheet, Image , ScrollView, Dimensions, ActivityIndicator } from 'react-native';
+import React, { useEffect } from 'react';
+import { TextInput, Modal, Animated, TouchableOpacity, Text, Button, View, StyleSheet, Image, ScrollView, Dimensions, ActivityIndicator } from 'react-native';
 import auth from '@react-native-firebase/auth';
 import { AuthContext } from '../components/context';
 import { Avatar } from 'react-native-elements';
@@ -15,354 +15,355 @@ import storage from '@react-native-firebase/storage';
 import { utils } from '@react-native-firebase/app';
 
 
-const LoginScreen = ({navigator}) => {
+const LoginScreen = ({ navigator }) => {
 
-var broly = 0;
-const firestoreRef = firestore().collection('Users/'+auth().currentUser.uid+'/Status');
-const afd = storage();
-const joref = storage().ref('/images/rockLifting.jpg');
-var storageRef = storage.reference;
-
-
-var jo = 0;
-
-const bloz = ['okay', 'brazy','dude'];
-const { user } = React.useContext(AuthContext);
-
-const [data,setData] = React.useState({
-  modalVisible: false,
-  modelImage: require('../images/therock.jpg'),
-  images: [
-    require('../images/therock.jpg')
-  ],
-  status: '',
-  status: '',
-  comments: [],
-  isLoading: true,
-  joCounter: 0
-});
+  var broly = 0;
+  const firestoreRef = firestore().collection('Users/' + auth().currentUser.uid + '/Status');
+  const afd = storage();
+  const joref = storage().ref('/images/rockLifting.jpg');
+  var storageRef = storage.reference;
 
 
+  var jo = 0;
 
+  const bloz = ['okay', 'brazy', 'dude'];
+  const { user } = React.useContext(AuthContext);
 
-// useEffect(() => {
-//   setTimeout(async() => {
-//     try {
-//       firestoreRef.onSnapshot(querySnapshot => {
-//     querySnapshot.forEach(doc => {
-//       console.log("hello bob: " + doc.data()['status']);
-//       const time1= doc.data()['time'];
-//       const type1= doc.data()['type'];
-//       const status1= doc.data()['status'];
-//       const brudda = {time: time1, type: type1, status: status1};
-//       data.comments.push(
-//         brudda
-//       );
-//       const jinx = [];
-//       const dawg = {name: 'bob', title:'dj'};
-//       jinx.push(dawg);
-//       console.log("this is the object:" + jinx + "here it is: " + jinx[0]['name']);
-//       console.log("this is the comment data: " +data.comments);
-//       isLoadingChange();
-//     });
-//   });
-//     } catch (e) {
-//       // saving error
-//       console.log(e);
-//     }
-//   }, 10000);
-// }, []);
-
-useEffect(() => {
-  data.comments = [];
-  return firestoreRef.orderBy('time','asc').onSnapshot(querySnapshot => {
-      var doogie = 0;
-    querySnapshot.forEach(doc => {
-      doogie++;
-      // console.log("new query:" + doogie+" : "+data.isLoading);
-      const time1= doc.data()['time'];
-      const type1= doc.data()['type'];
-      const status1= doc.data()['status'];
-      const brudda = {time: time1, type: type1, status: status1};
-      if(type1 === 'photo'){
-
-      }
-      data.comments.unshift(
-        brudda
-      );
-    });
-    if(data.isLoading === true){
-      console.log("The thing is true rn: "+broly);
-      broly++;  
-      console.log("The thing is true rn: "+broly);
-      setLoader(false);
-    }
+  const [data, setData] = React.useState({
+    modalVisible: false,
+    modelImage: require('../images/therock.jpg'),
+    images: [
+      require('../images/therock.jpg')
+    ],
+    status: '',
+    status: '',
+    comments: [],
+    isLoading: true,
+    joCounter: 0
   });
-},[data.isLoading]);
 
 
-// const dawggy = () => {
-//   const bob = 'Users/'+auth().currentUser.uid+'/Status';
-//   firestore()
-//   .collection(bob)
-//   .orderBy('time','desc')
-//   .get()
-//   .then(querySnapshot => {
-//     if(data.joCounter===0){
-//       while(jo<querySnapshot._docs.length){
-//         data.comments.push(querySnapshot._docs[jo]._data.status);
-//         console.log("this is jo counter: "+jo);
-//         jo++;
-//       }
-//     }
-//     else{
-//       data.comments.unshift(querySnapshot._docs[0]._data.status);
-//     }
-//     setData({
-//       ...data,
-//       isLoading: false
-//     })
-//   });
-// }
-
-// const reference = firebase.storage().ref('black-t-shirt-sm.png');
 
 
-const grabMedia = () => {
-  console.log(afd);
-  afd.ref('images').putFile('https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.pinterest.com%2Fpin%2F822821794398992113%2F&psig=AOvVaw0S27u-NNxG-70IxTXSIEI3&ust=1593518905992000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCKC13NT-puoCFQAAAAAdAAAAABAD');
-  // const pathToFile = 'images\rockLifting.jpg';
-  // joref.putFile(pathToFile);
-  // const url = storage().getDownloadURL();
-  // console.log(url);
-  
-  // console.log("okay ryin right now photo grabbing");
-}
+  // useEffect(() => {
+  //   setTimeout(async() => {
+  //     try {
+  //       firestoreRef.onSnapshot(querySnapshot => {
+  //     querySnapshot.forEach(doc => {
+  //       console.log("hello bob: " + doc.data()['status']);
+  //       const time1= doc.data()['time'];
+  //       const type1= doc.data()['type'];
+  //       const status1= doc.data()['status'];
+  //       const brudda = {time: time1, type: type1, status: status1};
+  //       data.comments.push(
+  //         brudda
+  //       );
+  //       const jinx = [];
+  //       const dawg = {name: 'bob', title:'dj'};
+  //       jinx.push(dawg);
+  //       console.log("this is the object:" + jinx + "here it is: " + jinx[0]['name']);
+  //       console.log("this is the comment data: " +data.comments);
+  //       isLoadingChange();
+  //     });
+  //   });
+  //     } catch (e) {
+  //       // saving error
+  //       console.log(e);
+  //     }
+  //   }, 10000);
+  // }, []);
 
-const isLoadingChange = (stated) => {
-  setData({
-    ...data,
-    isLoading: stated
-  })
-}
+  useEffect(() => {
+    data.comments = [];
+    return firestoreRef.orderBy('time', 'asc').onSnapshot(querySnapshot => {
+      var doogie = 0;
+      querySnapshot.forEach(doc => {
+        doogie++;
+        // console.log("new query:" + doogie+" : "+data.isLoading);
+        const time1 = doc.data()['time'];
+        const type1 = doc.data()['type'];
+        const status1 = doc.data()['status'];
+        const brudda = { time: time1, type: type1, status: status1 };
+        if (type1 === 'photo') {
+
+        }
+        data.comments.unshift(
+          brudda
+        );
+      });
+      if (data.isLoading === true) {
+        console.log("The thing is true rn: " + broly);
+        broly++;
+        console.log("The thing is true rn: " + broly);
+        setLoader(false);
+      }
+    });
+  }, [data.isLoading]);
 
 
-const statusUpdateChange = (statusText) => {
-  setData({
-    ...data,
-    status: statusText
-  })
-}
+  // const dawggy = () => {
+  //   const bob = 'Users/'+auth().currentUser.uid+'/Status';
+  //   firestore()
+  //   .collection(bob)
+  //   .orderBy('time','desc')
+  //   .get()
+  //   .then(querySnapshot => {
+  //     if(data.joCounter===0){
+  //       while(jo<querySnapshot._docs.length){
+  //         data.comments.push(querySnapshot._docs[jo]._data.status);
+  //         console.log("this is jo counter: "+jo);
+  //         jo++;
+  //       }
+  //     }
+  //     else{
+  //       data.comments.unshift(querySnapshot._docs[0]._data.status);
+  //     }
+  //     setData({
+  //       ...data,
+  //       isLoading: false
+  //     })
+  //   });
+  // }
 
-const setModalVisible = (visible) => {
-  setData({
+  // const reference = firebase.storage().ref('black-t-shirt-sm.png');
+
+
+  const grabMedia = () => {
+    console.log(afd);
+    afd.ref('images').putFile('https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.pinterest.com%2Fpin%2F822821794398992113%2F&psig=AOvVaw0S27u-NNxG-70IxTXSIEI3&ust=1593518905992000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCKC13NT-puoCFQAAAAAdAAAAABAD');
+    // const pathToFile = 'images\rockLifting.jpg';
+    // joref.putFile(pathToFile);
+    // const url = storage().getDownloadURL();
+    // console.log(url);
+
+    // console.log("okay ryin right now photo grabbing");
+  }
+
+  const isLoadingChange = (stated) => {
+    setData({
+      ...data,
+      isLoading: stated
+    })
+  }
+
+
+  const statusUpdateChange = (statusText) => {
+    setData({
+      ...data,
+      status: statusText
+    })
+  }
+
+  const setModalVisible = (visible) => {
+    setData({
       ...data,
       modalVisible: visible,
-  })
-}
+    })
+  }
 
-const setLoader = (place) => {
-  setData({
+  const setLoader = (place) => {
+    setData({
       ...data,
       isLoading: place,
-  })
-  console.log("tis is itthe state is: "+ data.isLoading);
-}
+    })
+    console.log("tis is itthe state is: " + data.isLoading);
+  }
 
-const signOut = () => { 
-  auth()
-  .signOut()
-  .then(() => console.log('User signed out!'));
-}
+  const signOut = () => {
+    auth()
+      .signOut()
+      .then(() => console.log('User signed out!'));
+  }
 
-const postStatus = (statusText,typeOfFile) => {
-  console.log("anotha one");
-  const bob = 'Users/'+auth().currentUser.uid+'/Status';
-  console.log(bob);
-  firestore()
-  .collection(bob)
-  .add({
-    status: statusText,
-    type: typeOfFile,
-    time: firestore.Timestamp.now()
-  })
-  .then(() => {
-    console.log('Status Updated');
-    data.joCounter=1;
-    // if(data.isLoading===true){
-    //   console.log('wow breah doing it rn.');
-    //   setLoader(true);
+  const postStatus = (statusText, typeOfFile) => {
+    console.log("anotha one");
+    const bob = 'Users/' + auth().currentUser.uid + '/Status';
+    console.log(bob);
+    firestore()
+      .collection(bob)
+      .add({
+        status: statusText,
+        type: typeOfFile,
+        time: firestore.Timestamp.now()
+      })
+      .then(() => {
+        console.log('Status Updated');
+        data.joCounter = 1;
+        // if(data.isLoading===true){
+        //   console.log('wow breah doing it rn.');
+        //   setLoader(true);
 
-    // }
-    console.log("just set it rn");
-    
-    console.log("about to");
-    grabMedia();
-    setLoader(true);
-  });
-}
+        // }
+        console.log("just set it rn");
 
-  if(data.isLoading === true){
-    return(
-      <View style={{flex:1,justifyContent: "center", alignItems: "center"}}>
-        <ActivityIndicator size="large"/>
+        console.log("about to");
+        grabMedia();
+        setLoader(true);
+      });
+  }
+
+  if (data.isLoading === true) {
+    return (
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <ActivityIndicator size="large" />
       </View>
     );
   }
 
   return (
     <View style={styles.container}>
-      <Modal 
+      <Modal
         style={styles.container}
         animationType={'fade'}
         transparent={true}
         visible={data.modalVisible}
-        onRequestClose={() => {}}
+        onRequestClose={() => { }}
       >
         <View style={styles.modal}>
-        <Text style={{color: 'white'}} onPress={()=> setModalVisible(false)}>
-          Close
+          <Text style={{ color: 'white' }} onPress={() => setModalVisible(false)}>
+            Close
         </Text>
-        <ReactNativeZoomableView
-          maxZoom={1.5}
-          minZoom={0.5}
-          zoomStep={0.5}
-          initialZoom={1}
-          bindToBorders={true}
-        >
-          <Image style={styles.breh} resizeMode='contain' source={require('../images/rockLifting.jpg')}></Image>
-        </ReactNativeZoomableView>
+          <ReactNativeZoomableView
+            maxZoom={1.5}
+            minZoom={0.5}
+            zoomStep={0.5}
+            initialZoom={1}
+            bindToBorders={true}
+          >
+            <Image style={styles.breh} resizeMode='contain' source={require('../images/rockLifting.jpg')}></Image>
+          </ReactNativeZoomableView>
         </View>
-        </Modal>
+      </Modal>
       <View style={styles.header}>
-        {/* <Button
-        title= 'signout'
-        onPress={()=>signOut()}
-        /> */}
+
         <View style={styles.wallpaper}>
           <Image
-            style= {styles.wallpaperImage}
-            source= {require('../images/wallpaper.jpg')}
-            resizeMode= 'cover'
+            style={styles.wallpaperImage}
+            source={require('../images/wallpaper.jpg')}
+            resizeMode='cover'
           />
         </View>
       </View >
       <View style={styles.midSection}>
-      <View style={styles.avatar}>
+        <View style={styles.avatar}>
           <Avatar
-            source= {require('../images/therock.jpg')}
+            source={require('../images/therock.jpg')}
             rounded
             size={180}
           />
           <Text style={styles.name}>John Doe</Text>
           <View style={styles.followers}>
-            <Text style={{flex:1, paddingLeft: 25}}>150 Followers</Text>
-            <Text style={{paddingRight:25}}>200 Following</Text>
+            <Text style={{ flex: 1, paddingLeft: 25 }}>150 Followers</Text>
+            <Text style={{ paddingRight: 25 }}>200 Following</Text>
           </View>
         </View>
       </View>
       <View style={styles.footer}>
-        <View style={{flexDirection: "row", alignItems: "center"}}>
-          <TextInput 
+        <View style={{ flexDirection: "row", alignItems: "center" }}>
+          <TextInput
             multiline={true}
             placeholder="Say something..."
-            style={{ marginVertical: 10, borderBottomWidth:1, width: 350}}
-            onChangeText={(val)=> statusUpdateChange(val)}
+            style={{ marginVertical: 10, borderBottomWidth: 1, width: 350 }}
+            onChangeText={(val) => statusUpdateChange(val)}
           />
-            <TouchableOpacity
-              onPress={()=> postStatus(data.status,'photo')}
-              //  onPress={()=> grabStatus()}
-            >
-                <Text style={{  marginLeft:5, borderRadius:5,padding:5, backgroundColor: '#9bd494'}}>Post</Text>
-              </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => postStatus(data.status, 'photo')}
+          //  onPress={()=> grabStatus()}
+          >
+            <Text style={{ marginLeft: 5, borderRadius: 5, padding: 5, backgroundColor: '#9bd494' }}>Post</Text>
+          </TouchableOpacity>
         </View>
         <ScrollView>
           <View style={styles.activityList}>
-            <View style={{flex:1, justifyContent: 'center'}}>
-            { data.comments.map((item, key)=>(
-            <Text key={key}> { item.status }</Text>)
-            )}
-                {/* <Text>{data.comments[0]['status']}</Text>
+            <View style={{ flex: 1, justifyContent: 'center' }}>
+              {data.comments.map((item, key) => (
+                <Text key={key}> { item.status}</Text>)
+              )}
+              {/* <Text>{data.comments[0]['status']}</Text>
                 <Text>{data.comments[0]['time'].toDate().toString()}</Text> */}
             </View>
           </View>
           <View style={styles.activityList}>
-            <View style={{flex:1, justifyContent: 'center'}}>
-              <MaterialIcon name="human-handsup" size={24} color="#00aae3"/>
+            <View style={{ flex: 1, justifyContent: 'center' }}>
+              <MaterialIcon name="human-handsup" size={24} color="#00aae3" />
             </View>
-            <View style={{flex:7, justifyContent: 'center'}}>
+            <View style={{ flex: 7, justifyContent: 'center' }}>
               <Text> Goal: Lift 3 weeks in a row met!</Text>
             </View>
-            <View style={{flex:1,justifyContent: 'center', alignItems: 'flex-end' }}>
+            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'flex-end' }}>
               <TouchableOpacity>
-                <MaterialIcon name="delete" size={25} color="#abb3a8"/>
+                <MaterialIcon name="delete" size={25} color="#abb3a8" />
               </TouchableOpacity>
             </View>
           </View>
           <View style={styles.activityList}>
-            <View style={{flex:1, justifyContent: 'center'}}>
-              <MaterialIcon name="map-marker" size={24} color="#61c92c"/>
+            <View style={{ flex: 1, justifyContent: 'center' }}>
+              <MaterialIcon name="map-marker" size={24} color="#61c92c" />
             </View>
-            <View style={{flex:7, justifyContent: 'center'}}>
+            <View style={{ flex: 7, justifyContent: 'center' }}>
               <Text>Checked in at Planet Fitness on Greenfield Avedzvzdvzdvvdzvdzvvzvdzvzv</Text>
             </View>
-            <View style={{flex:1,justifyContent: 'center', alignItems: 'flex-end' }}>
+            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'flex-end' }}>
               <TouchableOpacity>
-                <MaterialIcon name="delete" size={25} color="#abb3a8"/>
+                <MaterialIcon name="delete" size={25} color="#abb3a8" />
               </TouchableOpacity>
             </View>
           </View>
           <View style={styles.activityList}>
-            <View style={{flex:1, justifyContent: 'center'}}>
-              <MaterialIcon name="star-circle" size={24} color="#e2ed45"/>
+            <View style={{ flex: 1, justifyContent: 'center' }}>
+              <MaterialIcon name="star-circle" size={24} color="#e2ed45" />
             </View>
-            <View style={{flex:7, justifyContent: 'center'}}>
+            <View style={{ flex: 7, justifyContent: 'center' }}>
               <Text>Lost 5 lbs!</Text>
             </View>
-            <View style={{flex:1,justifyContent: 'center', alignItems: 'flex-end' }}>
+            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'flex-end' }}>
               <TouchableOpacity>
-                <MaterialIcon name="delete" size={25} color="#abb3a8"/>
+                <MaterialIcon name="delete" size={25} color="#abb3a8" />
               </TouchableOpacity>
             </View>
           </View>
           <View style={styles.activityList}>
-            <View style={{flex:1, justifyContent: 'center'}}>
-              <MaterialIcon name="map-marker" size={24} color="#61c92c"/>
+            <View style={{ flex: 1, justifyContent: 'center' }}>
+              <MaterialIcon name="map-marker" size={24} color="#61c92c" />
             </View>
-            <View style={{flex:7, justifyContent: 'center'}}>
+            <View style={{ flex: 7, justifyContent: 'center' }}>
               <Text>Checked in at Planet Fitness on Greenfield Avedzvzdvzdvvdzvdzvvzvdzvzv</Text>
             </View>
-            <View style={{flex:1,justifyContent: 'center', alignItems: 'flex-end' }}>
+            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'flex-end' }}>
               <TouchableOpacity>
-                <MaterialIcon name="delete" size={25} color="#abb3a8"/>
+                <MaterialIcon name="delete" size={25} color="#abb3a8" />
               </TouchableOpacity>
             </View>
           </View>
           <View style={styles.activityList}>
-            <View style={{flex:7, justifyContent: 'center'}}>
-              <TouchableOpacity onPress={()=> setModalVisible(true)}>
+            <View style={{ flex: 7, justifyContent: 'center' }}>
+              <TouchableOpacity onPress={() => setModalVisible(true)}>
                 <Image source={require('../images/rockLifting.jpg')}></Image>
               </TouchableOpacity>
             </View>
-            <View style={{flex:1,justifyContent: 'center', alignItems: 'flex-end' }}>
+            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'flex-end' }}>
               <TouchableOpacity>
-                <MaterialIcon name="delete" size={25} color="#abb3a8"/>
+                <MaterialIcon name="delete" size={25} color="#abb3a8" />
               </TouchableOpacity>
             </View>
           </View>
           <View style={styles.activityList}>
-            <View style={{flex:1, justifyContent: 'center'}}>
-              <MaterialIcon name="map-marker" size={24} color="#61c92c"/>
+            <View style={{ flex: 1, justifyContent: 'center' }}>
+              <MaterialIcon name="map-marker" size={24} color="#61c92c" />
             </View>
-            <View style={{flex:7, justifyContent: 'center'}}>
+            <View style={{ flex: 7, justifyContent: 'center' }}>
               <Text>Checked in at Planet Fitness on Greenfield Avedzvzdvzdvvdzvdzvvzvdzvzv</Text>
             </View>
-            <View style={{flex:1,justifyContent: 'center', alignItems: 'flex-end' }}>
+            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'flex-end' }}>
               <TouchableOpacity>
-                <MaterialIcon name="delete" size={25} color="#abb3a8"/>
+                <MaterialIcon name="delete" size={25} color="#abb3a8" />
               </TouchableOpacity>
             </View>
           </View>
+          {<Button
+            title='signout'
+            onPress={() => signOut()}
+          />}
         </ScrollView>
       </View>
     </View>
@@ -374,12 +375,12 @@ const styles = StyleSheet.create({
   statusInput: {
   },
   modal: {
-    flex:1,
+    flex: 1,
     backgroundColor: 'rgba(0,0,0,0.9)',
     padding: 25
   },
   breh: {
-    flex:1,
+    flex: 1,
     width: null,
   },
   container: {
@@ -390,7 +391,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#92d6cd"
   },
   midSection: {
-    flex:.2,
+    flex: .2,
     backgroundColor: "#92d6cd"
   },
   footer: {
@@ -398,7 +399,7 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   wallpaper: {
-    flex:1,
+    flex: 1,
     marginHorizontal: 6,
     marginTop: 6,
     marginBottom: 108,
