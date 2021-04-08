@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { TextInput, Text, View, StyleSheet, TouchableOpacity , Dimensions } from 'react-native';
+import { TextInput, Text, View, StyleSheet, TouchableOpacity, Dimensions } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import MaterialIcon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -8,24 +8,24 @@ import * as Animatable from 'react-native-animatable';
 import auth from '@react-native-firebase/auth';
 
 
-const SplashScreen = ({navigation}) => {
-    
-    const [data,setData] = React.useState({
+const SplashScreen = ({ navigation }) => {
+
+    const [data, setData] = React.useState({
         textChange: false,
         secureTextEntry: true,
         email: '',
         password: ''
     });
-    
+
     const toggleSecureText = () => {
         setData({
             ...data,
             secureTextEntry: !data.secureTextEntry
         })
     }
-    
+
     const textInputChange = (val) => {
-        if(val.length > 0){
+        if (val.length > 0) {
             setData({
                 ...data,
                 email: val,
@@ -49,86 +49,94 @@ const SplashScreen = ({navigation}) => {
 
     const loginUser = (userEmail, userPassword) => {
 
-        auth()
-        .signInWithEmailAndPassword(userEmail, userPassword)
-        .then(() => {
-            console.log('User Logged In');
-        })
-        .catch(error => {
-            if (error.code === 'auth/invalid-email') {
-                alert("The email address is invalid");
-            }
+        if (userEmail === "") {
+            alert("Email is empty. Please enter an email.")
+        } else if (userPassword === "") {
+            alert("Password is empty. Please enter a password.")
+        } else {
 
-            else if (error.code === 'auth/user-not-found') {
-                alert("User credentials incorrect. Please try again.");
-            }
+            auth()
+                .signInWithEmailAndPassword(userEmail, userPassword)
+                .then(() => {
+                    console.log('User Logged In');
+                })
+                .catch(error => {
+                    if (error.code === 'auth/invalid-email') {
+                        alert("The email address is invalid");
+                    }
 
-            else{
-                console.log(error);
-            }
-        });
+                    else if (error.code === 'auth/user-not-found') {
+                        alert("User credentials incorrect. Please try again.");
+                    }
+
+                    else {
+                        console.log(error);
+                    }
+                });
+
+        }
     }
 
-    return(
+    return (
         <View style={styles.container}>
             <LinearGradient colors={['#1fcc87', '#0d6ad4']} style={styles.linearGradient}>
                 <View style={styles.header}>
                     <Animatable.Image animation="fadeInLeftBig" duration={3000}
                         style={styles.logo}
-                        source= {require('../images/logo.png')}
+                        source={require('../images/logo.png')}
                         resizeMode="stretch"
                     />
                 </View>
                 <View style={styles.footer}>
                     <View style={styles.input}>
-                        <Icon name="user-o" size={25} color="#d3d7db" style={{marginRight: 5}}/>
+                        <Icon name="user-o" size={25} color="#d3d7db" style={{ marginRight: 5 }} />
                         <TextInput
-                            placeholder= "Email"
-                            placeholderTextColor= "#d3d7db"
+                            placeholder="Email"
+                            placeholderTextColor="#d3d7db"
                             style={styles.textInput}
                             autoCapitalize='none'
-                            onChangeText={(val)=> textInputChange(val)}
+                            onChangeText={(val) => textInputChange(val)}
                         />
                         {data.textChange ?
-                            <MaterialIcon name="checkbox-marked-circle-outline" size={25} color="#00ff1a"/>
-                        :
+                            <MaterialIcon name="checkbox-marked-circle-outline" size={25} color="#00ff1a" />
+                            :
                             null
                         }
                     </View>
-                    <View style={[styles.input, {marginTop: 20, marginLeft: -4}]}>
-                        <MaterialIcon name="lock-outline" size={30} color="#d3d7db" style={styles.icon}/>
+                    <View style={[styles.input, { marginTop: 20, marginLeft: -4 }]}>
+                        <MaterialIcon name="lock-outline" size={30} color="#d3d7db" style={styles.icon} />
                         <TextInput
-                            placeholder= "Password"
-                            placeholderTextColor= "#d3d7db"
+                            placeholder="Password"
+                            placeholderTextColor="#d3d7db"
                             style={styles.textInput}
                             autoCapitalize='none'
-                            secureTextEntry= {data.secureTextEntry}
+                            secureTextEntry={data.secureTextEntry}
                             onChangeText={(val) => passwordInputChange(val)}
                         />
-                        <TouchableOpacity onPress={()=> toggleSecureText()}>
+                        <TouchableOpacity onPress={() => toggleSecureText()}>
                             {data.secureTextEntry ?
-                                <MaterialIcon name="eye-off" size={25} color="#d3d7db"/>
-                            :
-                                <MaterialIcon name="eye" size={25} color="#d3d7db"/>
+                                <MaterialIcon name="eye-off" size={25} color="#d3d7db" />
+                                :
+                                <MaterialIcon name="eye" size={25} color="#d3d7db" />
                             }
                         </TouchableOpacity>
                     </View>
-                    <View style={{marginTop: 20}}>
-                        <TouchableOpacity style={styles.button} onPress={()=> {loginUser(data.email,data.password)}}>
-                                <Text style={styles.buttonText}>Login</Text>
+                    <View style={{ marginTop: 20 }}>
+                        <TouchableOpacity style={styles.button} onPress={() => { loginUser(data.email, data.password) }}>
+                            <Text style={styles.buttonText}>Login</Text>
                         </TouchableOpacity>
                     </View>
-                    <View style={{marginTop: 20}}>
-                        <TouchableOpacity onPress={()=> {navigation.navigate('PasswordResetScreen')}}>
-                        <Text style={{color: '#d3d7db'}}>Forgot Your Password?</Text>
+                    <View style={{ marginTop: 20 }}>
+                        <TouchableOpacity onPress={() => { navigation.navigate('PasswordResetScreen') }}>
+                            <Text style={{ color: '#d3d7db' }}>Forgot Your Password?</Text>
                         </TouchableOpacity>
                     </View>
-                    <View style={{marginTop: 170}}>
-                        <Text style={{color: '#d3d7db'}}>Don't Have an Account?</Text>
+                    <View style={{ marginTop: 170 }}>
+                        <Text style={{ color: '#d3d7db' }}>Don't Have an Account?</Text>
                     </View>
-                    <View style={{marginTop: 20}}>
-                        <TouchableOpacity style={styles.button} onPress={()=> {navigation.navigate('RegisterScreen')}}>
-                                <Text style={styles.buttonText}>Register Now</Text>
+                    <View style={{ marginTop: 20 }}>
+                        <TouchableOpacity style={styles.button} onPress={() => { navigation.navigate('RegisterScreen') }}>
+                            <Text style={styles.buttonText}>Register Now</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -137,7 +145,7 @@ const SplashScreen = ({navigation}) => {
     )
 }
 
-const {height} = Dimensions.get("screen");
+const { height } = Dimensions.get("screen");
 const height_logo = height * 0.28;
 
 const styles = StyleSheet.create({
@@ -163,7 +171,7 @@ const styles = StyleSheet.create({
     },
     textInput: {
         fontSize: 17,
-        flex:1,
+        flex: 1,
         height: 40,
         borderColor: "white",
         color: "white",
@@ -181,7 +189,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         borderRadius: 10,
         flexDirection: 'row',
-        borderWidth:1,
+        borderWidth: 1,
         borderColor: '#d3d7db'
     },
     buttonText: {
