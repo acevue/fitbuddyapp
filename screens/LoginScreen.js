@@ -14,18 +14,46 @@ import Status from './status';
 import storage from '@react-native-firebase/storage';
 import { utils } from '@react-native-firebase/app';
 import { Appbar } from 'react-native-paper';
+import { useState } from "react";
+import ImagePicker from 'react-native-image-picker';
 
+const LoginScreen = ({ navigation }) => {
 
-const LoginScreen = ({ navigator }) => {
+  const [imageSource, setImageSource] = useState(null);
+
+  function selectImage() {
+
+    let options = {
+      title: 'You can choose one image',
+      maxWidth: 256,
+      maxHeight: 256,
+      noData: true,
+      mediaType: 'photo',
+      storageOptions: {
+        skipBackup: true
+      }
+    };
+
+    ImagePicker.launchImageLibrary(options, response => {
+      if (response.didCancel) {
+        console.log('User cancelled photo picker');
+        alert('You did not select any image');
+      } else if (response.error) {
+        alert('ImagePicker Error: ');
+      } else if (response.customButton) {
+        console.log('User tapped custom button: ', response.customButton);
+      } else {
+        let source = { uri: response.uri };
+        // ADD THIS
+        setImageSource(source.uri);
+      }
+    });
+
+  }
 
   //TODO
   const _handleMore = () => {
     alert("TODO: Options...")
-  }
-
-  //TODO
-  const updateProfile = () => {
-    alert("TODO: Update Avatar Picture")
   }
 
   var broly = 0;
@@ -233,22 +261,29 @@ const LoginScreen = ({ navigator }) => {
       </Appbar.Header>
 
       <View style={styles.avatar}>
-        <View style={{ marginBottom: 8, marginTop: 40 }}>
+        {imageSource === null ? (
           <Avatar
             source={require('../images/profile_pic.jpg')}
             rounded
             size={180}
             interactive
-            //TODO
-            onPress={updateProfile}
+            onPress={selectImage}
           />
-        </View>
+        ) : (
+          <Avatar
+            source={{ uri: imageSource }}
+            rounded
+            size={180}
+            interactive
+            onPress={selectImage}
+          />
+        )}
 
         <Text style={styles.name}>John Doe</Text>
-        <View style={styles.followers}>
-          <Text style={{ flex: 1, paddingLeft: 25 }}>150 Followers</Text>
-          <Text style={{ paddingRight: 25 }}>200 Following</Text>
-        </View>
+      </View>
+      <View style={styles.followers}>
+        <Text style={{ flex: 1, paddingLeft: 25 }}>150 Followers</Text>
+        <Text style={{ paddingRight: 25 }}>200 Following</Text>
       </View>
       <View style={styles.footer}>
         <View style={{ flexDirection: "row", alignItems: "center" }}>
@@ -365,7 +400,6 @@ const LoginScreen = ({ navigator }) => {
   );
 }
 
-
 const styles = StyleSheet.create({
   statusInput: {
   },
@@ -406,6 +440,7 @@ const styles = StyleSheet.create({
   },
   avatar: {
     alignItems: 'center',
+    marginTop: 18
   },
   name: {
     fontSize: 20,
@@ -423,6 +458,4 @@ const styles = StyleSheet.create({
     paddingVertical: 15
   }
 });
-
-
 export default LoginScreen;
