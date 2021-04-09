@@ -13,13 +13,20 @@ import firestore from '@react-native-firebase/firestore';
 import Status from './status';
 import storage from '@react-native-firebase/storage';
 import { utils } from '@react-native-firebase/app';
+import { Appbar } from 'react-native-paper';
 
 
 const LoginScreen = ({ navigator }) => {
 
-  //Hello
-  const _handleMore = () => console.log('Shown more');
+  //TODO
+  const _handleMore = () => {
+    alert("TODO: Options...")
+  }
 
+  //TODO
+  const updateProfile = () => {
+    alert("TODO: Update Avatar Picture")
+  }
 
   var broly = 0;
   const firestoreRef = firestore().collection('Users/' + auth().currentUser.uid + '/Status');
@@ -132,9 +139,7 @@ const LoginScreen = ({ navigator }) => {
   // const reference = firebase.storage().ref('black-t-shirt-sm.png');
 
 
-  const updateProfile = () => {
-    console.log("TODO: Update Profile Picture")
-  }
+
 
   const grabMedia = () => {
     console.log(afd);
@@ -222,55 +227,27 @@ const LoginScreen = ({ navigator }) => {
 
   return (
     <View style={styles.container}>
-      <Modal
-        style={styles.container}
-        animationType={'fade'}
-        transparent={true}
-        visible={data.modalVisible}
-        onRequestClose={() => { }}
-      >
-        <View style={styles.modal}>
-          <Text style={{ color: 'white' }} onPress={() => setModalVisible(false)}>
-            Close
-        </Text>
-          <ReactNativeZoomableView
-            maxZoom={1.5}
-            minZoom={0.5}
-            zoomStep={0.5}
-            initialZoom={1}
-            bindToBorders={true}
-          >
-            <Image style={styles.breh} resizeMode='contain' source={require('../images/rockLifting.jpg')}></Image>
-          </ReactNativeZoomableView>
-        </View>
-      </Modal>
-      <View style={styles.header}>
+      <Appbar.Header style={{ backgroundColor: '#00cc99' }}>
+        <Appbar.Content title="FitBuddy" subtitle="" />
+        <Appbar.Action icon="dots-vertical" onPress={_handleMore} />
+      </Appbar.Header>
 
-        <View style={styles.wallpaper}>
-          <Image
-          //TODO:
-          //style={styles.wallpaperImage}
-          //source={require('../images/wallpaper.jpg')}
-          //resizeMode='cover'
+      <View style={styles.avatar}>
+        <View style={{ marginBottom: 8, marginTop: 40 }}>
+          <Avatar
+            source={require('../images/profile_pic.jpg')}
+            rounded
+            size={180}
+            interactive
+            //TODO
+            onPress={updateProfile}
           />
         </View>
-      </View >
-      <View style={styles.midSection}>
-        <View style={styles.avatar}>
-          <View style={{ marginBottom: 8 }}>
-            <Avatar
-              source={require('../images/profile_pic.jpg')}
-              rounded
-              size={180}
-              onPress={() => alert("working")}
-            />
-          </View>
 
-          <Text style={styles.name}>John Doe</Text>
-          <View style={styles.followers}>
-            <Text style={{ flex: 1, paddingLeft: 25 }}>150 Followers</Text>
-            <Text style={{ paddingRight: 25 }}>200 Following</Text>
-          </View>
+        <Text style={styles.name}>John Doe</Text>
+        <View style={styles.followers}>
+          <Text style={{ flex: 1, paddingLeft: 25 }}>150 Followers</Text>
+          <Text style={{ paddingRight: 25 }}>200 Following</Text>
         </View>
       </View>
       <View style={styles.footer}>
@@ -429,7 +406,6 @@ const styles = StyleSheet.create({
   },
   avatar: {
     alignItems: 'center',
-    marginTop: -200
   },
   name: {
     fontSize: 20,
