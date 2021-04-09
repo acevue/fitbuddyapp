@@ -1,11 +1,9 @@
 import React from 'react';
-
 import { TextInput, Text, View, StyleSheet, TouchableOpacity, Dimensions } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import MaterialIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import auth from '@react-native-firebase/auth';
-
 
 
 const PasswordResetScreen = ({ navigation }) => {
