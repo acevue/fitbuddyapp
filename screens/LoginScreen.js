@@ -19,6 +19,8 @@ import ImagePicker from 'react-native-image-picker';
 
 const LoginScreen = ({ navigation }) => {
 
+
+
   const [imageSource, setImageSource] = useState(null);
 
   function selectImage() {
@@ -54,6 +56,11 @@ const LoginScreen = ({ navigation }) => {
   //TODO
   const _handleMore = () => {
     alert("TODO: Options...")
+  }
+
+  //TODO
+  const _handleSearch = () => {
+    alert("TODO: Search for users...")
   }
 
   var broly = 0;
@@ -257,6 +264,7 @@ const LoginScreen = ({ navigation }) => {
     <View style={styles.container}>
       <Appbar.Header style={{ backgroundColor: '#00cc99' }}>
         <Appbar.Content title="FitBuddy" subtitle="" />
+        <Appbar.Action icon="magnify" onPress={_handleSearch} />
         <Appbar.Action icon="dots-vertical" onPress={_handleMore} />
       </Appbar.Header>
 
