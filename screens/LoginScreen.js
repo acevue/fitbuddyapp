@@ -16,6 +16,7 @@ import { utils } from '@react-native-firebase/app';
 import { Appbar } from 'react-native-paper';
 import { useState } from "react";
 import ImagePicker from 'react-native-image-picker';
+import Fitness from '@ovalmoney/react-native-fitness';
 
 const LoginScreen = ({ navigation }) => {
 
@@ -89,43 +90,12 @@ const LoginScreen = ({ navigation }) => {
   });
 
 
-
-
-  // useEffect(() => {
-  //   setTimeout(async() => {
-  //     try {
-  //       firestoreRef.onSnapshot(querySnapshot => {
-  //     querySnapshot.forEach(doc => {
-  //       console.log("hello bob: " + doc.data()['status']);
-  //       const time1= doc.data()['time'];
-  //       const type1= doc.data()['type'];
-  //       const status1= doc.data()['status'];
-  //       const brudda = {time: time1, type: type1, status: status1};
-  //       data.comments.push(
-  //         brudda
-  //       );
-  //       const jinx = [];
-  //       const dawg = {name: 'bob', title:'dj'};
-  //       jinx.push(dawg);
-  //       console.log("this is the object:" + jinx + "here it is: " + jinx[0]['name']);
-  //       console.log("this is the comment data: " +data.comments);
-  //       isLoadingChange();
-  //     });
-  //   });
-  //     } catch (e) {
-  //       // saving error
-  //       console.log(e);
-  //     }
-  //   }, 10000);
-  // }, []);
-
   useEffect(() => {
     data.comments = [];
     return firestoreRef.orderBy('time', 'asc').onSnapshot(querySnapshot => {
       var doogie = 0;
       querySnapshot.forEach(doc => {
         doogie++;
-        // console.log("new query:" + doogie+" : "+data.isLoading);
         const time1 = doc.data()['time'];
         const type1 = doc.data()['type'];
         const status1 = doc.data()['status'];
@@ -147,44 +117,9 @@ const LoginScreen = ({ navigation }) => {
   }, [data.isLoading]);
 
 
-  // const dawggy = () => {
-  //   const bob = 'Users/'+auth().currentUser.uid+'/Status';
-  //   firestore()
-  //   .collection(bob)
-  //   .orderBy('time','desc')
-  //   .get()
-  //   .then(querySnapshot => {
-  //     if(data.joCounter===0){
-  //       while(jo<querySnapshot._docs.length){
-  //         data.comments.push(querySnapshot._docs[jo]._data.status);
-  //         console.log("this is jo counter: "+jo);
-  //         jo++;
-  //       }
-  //     }
-  //     else{
-  //       data.comments.unshift(querySnapshot._docs[0]._data.status);
-  //     }
-  //     setData({
-  //       ...data,
-  //       isLoading: false
-  //     })
-  //   });
-  // }
-
-  // const reference = firebase.storage().ref('black-t-shirt-sm.png');
-
-
-
-
   const grabMedia = () => {
     console.log(afd);
     afd.ref('images').putFile('https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.pinterest.com%2Fpin%2F822821794398992113%2F&psig=AOvVaw0S27u-NNxG-70IxTXSIEI3&ust=1593518905992000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCKC13NT-puoCFQAAAAAdAAAAABAD');
-    // const pathToFile = 'images\rockLifting.jpg';
-    // joref.putFile(pathToFile);
-    // const url = storage().getDownloadURL();
-    // console.log(url);
-
-    // console.log("okay ryin right now photo grabbing");
   }
 
   const isLoadingChange = (stated) => {
@@ -237,11 +172,6 @@ const LoginScreen = ({ navigation }) => {
       .then(() => {
         console.log('Status Updated');
         data.joCounter = 1;
-        // if(data.isLoading===true){
-        //   console.log('wow breah doing it rn.');
-        //   setLoader(true);
-
-        // }
         console.log("just set it rn");
 
         console.log("about to");
@@ -250,6 +180,11 @@ const LoginScreen = ({ navigation }) => {
       });
   }
 
+  //Fitness features
+  //TODO:
+  const permissions = [
+    { kind: Fitness.PermissionKinds.Steps, access: Fitness.PermissionAccesses.Write },
+  ];
 
 
   if (data.isLoading === true) {
@@ -303,7 +238,6 @@ const LoginScreen = ({ navigation }) => {
           />
           <TouchableOpacity
             onPress={() => postStatus(data.status, 'photo')}
-          // onPress={() => grabStatus()}
           >
             <Text style={{ marginLeft: 5, borderRadius: 5, padding: 5, backgroundColor: '#9bd494' }}>Post</Text>
           </TouchableOpacity>
@@ -314,8 +248,6 @@ const LoginScreen = ({ navigation }) => {
               {data.comments.map((item, key) => (
                 <Text key={key}> { item.status}</Text>)
               )}
-              {/* <Text>{data.comments[0]['status']}</Text>
-                <Text>{data.comments[0]['time'].toDate().toString()}</Text> */}
             </View>
           </View>
           <View style={styles.activityList}>
