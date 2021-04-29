@@ -77,6 +77,8 @@ target 'FitBuddyApp' do
   pod 'glog', :podspec => '../node_modules/react-native/third-party-podspecs/glog.podspec'
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
 
+  pod 'react-native-fitness', :path => '../node_modules/@ovalmoney/react-native-fitness'
+
   target 'FitBuddyAppTests' do
     inherit! :complete
     # Pods for testing

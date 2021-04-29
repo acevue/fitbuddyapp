@@ -16,7 +16,8 @@ import { utils } from '@react-native-firebase/app';
 import { Appbar } from 'react-native-paper';
 import { useState } from "react";
 import ImagePicker from 'react-native-image-picker';
-import Fitness from '@ovalmoney/react-native-fitness';
+//import Fitness from '@ovalmoney/react-native-fitness';
+import GoogleFit, { Scopes } from 'react-native-google-fit'
 
 const LoginScreen = ({ navigation }) => {
 
@@ -182,10 +183,155 @@ const LoginScreen = ({ navigation }) => {
 
   //Fitness features
   //TODO:
-  const permissions = [
-    { kind: Fitness.PermissionKinds.Steps, access: Fitness.PermissionAccesses.Write },
-  ];
 
+  const steps = () => {
+    // The list of available scopes inside of src/scopes.js file
+    const options = {
+      scopes: [
+        Scopes.FITNESS_ACTIVITY_READ,
+        Scopes.FITNESS_ACTIVITY_WRITE,
+        Scopes.FITNESS_BODY_READ,
+        Scopes.FITNESS_BODY_WRITE,
+      ],
+    }
+
+    GoogleFit.authorize(options)
+      .then(authResult => {
+        if (authResult.success) {
+          alert("AUTH_SUCCESS");
+          const opt = {
+            startDate: "2021-04-29T00:00:17.107Z", // required ISO8601Timestamp
+            endDate: new Date().toISOString(), // required ISO8601Timestamp
+            bucketUnit: "Hourly", // optional - default "DAY". Valid values: "NANOSECOND" | "MICROSECOND" | "MILLISECOND" | "SECOND" | "MINUTE" | "HOUR" | "DAY"
+            bucketInterval: 1, // optional - default 1. 
+          };
+
+          GoogleFit.getDailyStepCountSamples(opt)
+            .then((res) => {
+              const str1 = 'Hourly Steps >>>' + JSON.stringify(res);
+              alert(str1);
+            })
+            .catch((err) => { console.warn(err) });
+        } else {
+          alert("AUTH_DENIED", authResult.message);
+        }
+      })
+      .catch(() => {
+        alert("AUTH_ERROR");
+      })
+
+
+
+  }
+
+  const height = () => {
+    // The list of available scopes inside of src/scopes.js file
+    const options = {
+      scopes: [
+        Scopes.FITNESS_ACTIVITY_READ,
+        Scopes.FITNESS_ACTIVITY_WRITE,
+        Scopes.FITNESS_BODY_READ,
+        Scopes.FITNESS_BODY_WRITE,
+      ],
+    }
+
+    GoogleFit.authorize(options)
+      .then(authResult => {
+        if (authResult.success) {
+          const opt = {
+            startDate: "2017-01-01T00:00:17.971Z", // required
+            endDate: new Date().toISOString(), // required
+          };
+
+          GoogleFit.getHeightSamples(opt).then((res) => {
+            const str1 = 'Height ( In Meters) >>>' + JSON.stringify(res);
+            alert(str1);
+          });
+
+        } else {
+          alert("AUTH_DENIED", authResult.message);
+        }
+      })
+      .catch(() => {
+        alert("AUTH_ERROR");
+      })
+
+
+
+  }
+
+  const weight = () => {
+    // The list of available scopes inside of src/scopes.js file
+    const options = {
+      scopes: [
+        Scopes.FITNESS_ACTIVITY_READ,
+        Scopes.FITNESS_ACTIVITY_WRITE,
+        Scopes.FITNESS_BODY_READ,
+        Scopes.FITNESS_BODY_WRITE,
+      ],
+    }
+
+    GoogleFit.authorize(options)
+      .then(authResult => {
+        if (authResult.success) {
+          const opt = {
+            unit: "pound", // required; default 'kg'
+            startDate: "2017-01-01T00:00:17.971Z", // required
+            endDate: new Date().toISOString(), // required
+            bucketUnit: "DAY", // optional - default "DAY". Valid values: "NANOSECOND" | "MICROSECOND" | "MILLISECOND" | "SECOND" | "MINUTE" | "HOUR" | "DAY"
+            bucketInterval: 1, // optional - default 1. 
+            ascending: false // optional; default false
+          };
+
+          GoogleFit.getWeightSamples(opt).then((res) => {
+            const str1 = 'Current Weight (lbs) >>>' + JSON.stringify(res);
+            alert(str1);
+          });
+
+        } else {
+          alert("AUTH_DENIED", authResult.message);
+        }
+      })
+      .catch(() => {
+        alert("AUTH_ERROR");
+      })
+  }
+
+  const calories = () => {
+    // The list of available scopes inside of src/scopes.js file
+    const options = {
+      scopes: [
+        Scopes.FITNESS_ACTIVITY_READ,
+        Scopes.FITNESS_ACTIVITY_WRITE,
+        Scopes.FITNESS_BODY_READ,
+        Scopes.FITNESS_BODY_WRITE,
+      ],
+    }
+
+    GoogleFit.authorize(options)
+      .then(authResult => {
+        if (authResult.success) {
+          const opt = {
+            startDate: "2021-04-29T00:00:17.107Z", // required
+            endDate: new Date().toISOString(), // required
+            basalCalculation: true, // optional, to calculate or not basalAVG over the week
+            bucketUnit: "DAY", // optional - default "DAY". Valid values: "NANOSECOND" | "MICROSECOND" | "MILLISECOND" | "SECOND" | "MINUTE" | "HOUR" | "DAY"
+            bucketInterval: 1, // optional - default 1. 
+          };
+
+          GoogleFit.getDailyCalorieSamples(opt).then((res) => {
+            const str1 = 'Calories (Burned) >>>' + JSON.stringify(res);
+            alert(str1);
+          });
+
+        } else {
+          alert("AUTH_DENIED", authResult.message);
+        }
+      })
+      .catch(() => {
+        alert("AUTH_ERROR");
+      })
+  }
 
   if (data.isLoading === true) {
     return (
@@ -202,6 +348,32 @@ const LoginScreen = ({ navigation }) => {
         <Appbar.Action icon="magnify" onPress={_handleSearch} />
         <Appbar.Action icon="dots-vertical" onPress={_handleMore} />
       </Appbar.Header>
+
+      <TouchableOpacity onPress={() => steps()}>
+        <Text style={{ marginLeft: 5, borderRadius: 5, padding: 5, backgroundColor: '#9bd494' }}>Check Daily Steps</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity onPress={() => calories()}>
+        <Text style={{ marginLeft: 5, borderRadius: 5, padding: 5, backgroundColor: '#9bd494' }}>Check Daily Calories</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity onPress={() => height()}>
+        <Text style={{ marginLeft: 5, borderRadius: 5, padding: 5, backgroundColor: '#9bd494' }}>Obtain Height</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity onPress={() => weight()}>
+        <Text style={{ marginLeft: 5, borderRadius: 5, padding: 5, backgroundColor: '#9bd494' }}>Obtain Weight</Text>
+      </TouchableOpacity>
+
+      <Text style={{ marginLeft: 5, borderRadius: 5, padding: 5, backgroundColor: '#9bd494' }}>TODO: Check Blood Pressure</Text>
+
+      <Text style={{ marginLeft: 5, borderRadius: 5, padding: 5, backgroundColor: '#9bd494' }}>TODO: Check Heart Rate</Text>
+
+      <Text style={{ marginLeft: 5, borderRadius: 5, padding: 5, backgroundColor: '#9bd494' }}>TODO: Check Daily Nutrition Intake</Text>
+
+      <Text style={{ marginLeft: 5, borderRadius: 5, padding: 5, backgroundColor: '#9bd494' }}>TODO: Check Hydration Intake</Text>
+
+      <Text style={{ marginLeft: 5, borderRadius: 5, padding: 5, backgroundColor: '#9bd494' }}>TODO: Google Fit</Text>
 
       <View style={styles.avatar}>
         {imageSource === null ? (
