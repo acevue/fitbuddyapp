@@ -18,50 +18,48 @@ import { useState } from "react";
 import ImagePicker from 'react-native-image-picker';
 import GoogleFit, { Scopes } from 'react-native-google-fit'
 
-const steps = ({ navigation }) => {
+const Sleep = ({ navigation }) => {
 
-    const showsteps = () => {
+    const showsleep = () => {
 
         // The list of available scopes inside of src/scopes.js file
         const options = {
+
             scopes: [
                 Scopes.FITNESS_ACTIVITY_READ,
                 Scopes.FITNESS_ACTIVITY_WRITE,
                 Scopes.FITNESS_BODY_READ,
                 Scopes.FITNESS_BODY_WRITE,
+                Scopes.FITNESS_ACTIVITY_READ,
+                Scopes.FITNESS_ACTIVITY_WRITE,
+                Scopes.FITNESS_HEART_RATE_READ,
+                Scopes.FITNESS_HEART_RATE_WRITE,
+                Scopes.FITNESS_BLOOD_PRESSURE_READ,
+                Scopes.FITNESS_BLOOD_PRESSURE_WRITE,
+                Scopes.FITNESS_BLOOD_GLUCOSE_READ,
+                Scopes.FITNESS_BLOOD_GLUCOSE_WRITE,
             ],
         }
 
-        GoogleFit.authorize(options)
-            .then(authResult => {
-                if (authResult.success) {
+        const opt = {
+            startDate: "2021-04-29T00:00:17.971Z", // required
+            endDate: new Date().toISOString(), // required
+            bucketUnit: "DAY", // optional - default "DAY". Valid values: "NANOSECOND" | "MICROSECOND" | "MILLISECOND" | "SECOND" | "MINUTE" | "HOUR" | "DAY"
+            bucketInterval: 1, // optional - default 1. 
+        }
 
-                    const opt = {
-                        startDate: "2021-04-29T00:00:17.107Z", // required ISO8601Timestamp
-                        endDate: new Date().toISOString(), // required ISO8601Timestamp
-                        bucketUnit: "Hourly", // optional - default "DAY". Valid values: "NANOSECOND" | "MICROSECOND" | "MILLISECOND" | "SECOND" | "MINUTE" | "HOUR" | "DAY"
-                        bucketInterval: 1, // optional - default 1. 
-                    };
-
-                    GoogleFit.getDailyStepCountSamples(opt)
-                        .then((res) => {
-                            const str1 = 'Hourly Steps >>>' + JSON.stringify(res);
-                            alert(str1);
-                        })
-                        .catch((err) => { console.warn(err) });
-                } else {
-                    alert("AUTH_DENIED", authResult.message);
-                }
+        GoogleFit.getHeartRateSamples(opt)
+            .then((res) => {
+                const str1 = 'Heart Rate >>>' + JSON.stringify(res);
+                alert(str1);
             })
-            .catch(() => {
-                alert("AUTH_ERROR");
-            })
+            .catch((err) => { console.warn(err) });
     }
 
     return (
 
-        <TouchableOpacity onPress={() => showsteps()}>
-            <Text style={{ marginLeft: 5, borderRadius: 5, padding: 5, backgroundColor: '#9bd494' }}>Display Steps Taken</Text>
+        <TouchableOpacity onPress={() => showsleep()}>
+            <Text style={{ marginLeft: 5, borderRadius: 5, padding: 5, backgroundColor: '#9bd494' }}>Display Sleep Data</Text>
         </TouchableOpacity>
 
     );
@@ -125,4 +123,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default steps;
+export default Sleep;

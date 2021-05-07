@@ -193,21 +193,12 @@ const LoginScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
+
       <Appbar.Header style={{ backgroundColor: '#00cc99' }}>
         <Appbar.Content title="FitBuddy" subtitle="" />
         <Appbar.Action icon="magnify" onPress={_handleSearch} />
         <Appbar.Action icon="dots-vertical" onPress={_handleMore} />
       </Appbar.Header>
-
-      <Text style={{ marginLeft: 5, borderRadius: 5, padding: 5, backgroundColor: '#9bd494' }}>TODO: Check Blood Pressure</Text>
-
-      <Text style={{ marginLeft: 5, borderRadius: 5, padding: 5, backgroundColor: '#9bd494' }}>TODO: Check Heart Rate</Text>
-
-      <Text style={{ marginLeft: 5, borderRadius: 5, padding: 5, backgroundColor: '#9bd494' }}>TODO: Check Daily Nutrition Intake</Text>
-
-      <Text style={{ marginLeft: 5, borderRadius: 5, padding: 5, backgroundColor: '#9bd494' }}>TODO: Check Hydration Intake</Text>
-
-      <Text style={{ marginLeft: 5, borderRadius: 5, padding: 5, backgroundColor: '#9bd494' }}>TODO: Google Fit</Text>
 
       <View style={styles.avatar}>
         {imageSource === null ? (
