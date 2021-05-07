@@ -9,6 +9,10 @@ import PasswordResetScreen from './PasswordResetScreen';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { DrawerContentScrollView, DrawerItemList, DrawerItem } from '@react-navigation/drawer';
 import UploadImage from './UploadImage';
+import steps from './steps';
+import calories from './calories';
+import height from './height';
+import weight from './weight';
 
 const Drawer = createDrawerNavigator();
 
@@ -29,8 +33,11 @@ const CustomDrawerContent = (props) => {
 
 const RootDrawerScreen = ({ navigation }) => (
     <Drawer.Navigator drawerContent={props => <CustomDrawerContent {...props} />}>
-        <Drawer.Screen name="LoginScreen" component={LoginScreen} />
-        <Drawer.Screen name="UploadImage" component={UploadImage} />
+        <Drawer.Screen name="Home" component={LoginScreen} />
+        <Drawer.Screen name="Check Steps (DAILY)" component={steps} />
+        <Drawer.Screen name="Check Calories (Daily)" component={calories} />
+        <Drawer.Screen name="Check Height" component={height} />
+        <Drawer.Screen name="Check Weight" component={weight} />
     </Drawer.Navigator>
 );
 
