@@ -44,7 +44,10 @@ const calories = ({ navigation }) => {
                     };
 
                     GoogleFit.getDailyCalorieSamples(opt).then((res) => {
-                        const str1 = 'Calories (Burned) >>>' + JSON.stringify(res);
+                        var curdate = new Date().toISOString();
+                        var strdat = curdate.substring(0, 10) + 'T00:00:17.107Z';
+                        var x = res.filter((item) => item.startDate == strdat).map(({ calorie, endDate, startDate }) => ({ calorie, endDate, startDate }));
+                        const str1 = 'Calories (Burned) >>>' + JSON.stringify(x[0].calorie);
                         alert(str1);
                     });
 
