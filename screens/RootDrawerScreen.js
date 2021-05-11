@@ -14,8 +14,6 @@ import calories from './calories';
 import height from './height';
 import weight from './weight';
 import BloodPressure from './BloodPressure';
-import HeartRate from './HeartRate';
-import Sleep from './Sleep';
 import GoogleFit, { Scopes } from 'react-native-google-fit'
 
 const Drawer = createDrawerNavigator();
@@ -67,8 +65,6 @@ const RootDrawerScreen = ({ navigation }) => (
         <Drawer.Screen name="Height (Current)" component={height} />
         <Drawer.Screen name="Weight (Current)" component={weight} />
         <Drawer.Screen name="Check Blood Pressure" component={BloodPressure} />
-        <Drawer.Screen name="TODO: Check Heart Rate" component={HeartRate} />
-        <Drawer.Screen name="Check Sleep" component={Sleep} />
     </Drawer.Navigator>
 );
 

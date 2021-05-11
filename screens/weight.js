@@ -45,7 +45,7 @@ const weight = ({ navigation }) => {
                     };
 
                     GoogleFit.getWeightSamples(opt).then((res) => {
-                        const str1 = 'Current Weight (lbs) >>>' + JSON.stringify(res);
+                        const str1 = 'Current Weight >>>' + JSON.stringify(res[0].value).substring(0, 5) + " lbs";
                         alert(str1);
                     });
 

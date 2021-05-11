@@ -47,7 +47,7 @@ const calories = ({ navigation }) => {
                         var curdate = new Date().toISOString();
                         var strdat = curdate.substring(0, 10) + 'T00:00:17.107Z';
                         var x = res.filter((item) => item.startDate == strdat).map(({ calorie, endDate, startDate }) => ({ calorie, endDate, startDate }));
-                        const str1 = 'Calories (Burned) >>>' + JSON.stringify(x[0].calorie);
+                        const str1 = 'Calories (Burned) >>> ' + JSON.stringify(x[0].calorie).substring(0, 7) + " Calories";
                         alert(str1);
                     });
 
