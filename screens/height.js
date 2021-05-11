@@ -41,7 +41,7 @@ const height = ({ navigation }) => {
                     };
 
                     GoogleFit.getHeightSamples(opt).then((res) => {
-                        const str1 = 'Height ( In Meters) >>>' + JSON.stringify(res);
+                        const str1 = 'Height >>>' + JSON.stringify(res[0].value).substring(0, 5) + " meters";
                         alert(str1);
                     });
 
