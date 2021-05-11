@@ -49,7 +49,7 @@ const steps = ({ navigation }) => {
                             var resttt = data1["steps"];
                             var curdate = new Date().toISOString();
                             var x = resttt.filter((item) => item.date == curdate.substring(0, 10)).map(({ date, value }) => ({ date, value }));
-                            const str1 = 'Hourly Steps >>>' + JSON.stringify(x[0].value);
+                            const str1 = 'Daily Steps >>>' + JSON.stringify(x[0].value);
                             alert(str1);
                         })
                         .catch((err) => { console.warn(err) });
