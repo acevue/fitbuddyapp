@@ -39,13 +39,17 @@ const steps = ({ navigation }) => {
                     const opt = {
                         startDate: "2021-04-29T00:00:17.107Z", // required ISO8601Timestamp
                         endDate: new Date().toISOString(), // required ISO8601Timestamp
-                        bucketUnit: "Hourly", // optional - default "DAY". Valid values: "NANOSECOND" | "MICROSECOND" | "MILLISECOND" | "SECOND" | "MINUTE" | "HOUR" | "DAY"
+                        bucketUnit: "DAY", // optional - default "DAY". Valid values: "NANOSECOND" | "MICROSECOND" | "MILLISECOND" | "SECOND" | "MINUTE" | "HOUR" | "DAY"
                         bucketInterval: 1, // optional - default 1. 
                     };
 
                     GoogleFit.getDailyStepCountSamples(opt)
                         .then((res) => {
-                            const str1 = 'Hourly Steps >>>' + JSON.stringify(res);
+                            var data1 = res[1];
+                            var resttt = data1["steps"];
+                            var curdate = new Date().toISOString();
+                            var x = resttt.filter((item) => item.date == curdate.substring(0, 10)).map(({ date, value }) => ({ date, value }));
+                            const str1 = 'Hourly Steps >>>' + JSON.stringify(x[0].value);
                             alert(str1);
                         })
                         .catch((err) => { console.warn(err) });
