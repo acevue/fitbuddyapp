@@ -63,20 +63,21 @@ const weight = ({ navigation }) => {
     return (
 
         <ImageBackground source={require('../images/weight.jpg')} style={styles.image}>
-            <View style={[{ marginTop: 110, height: 48, alignItems: "center", alignContent: "center", width: "100%", margin: 10 }]}>
+            <View style={[{ marginTop: 135, height: 35, alignItems: "center", alignContent: "center", width: "100%", margin: 10 }]}>
                 <Button onPress={showweight} title="Check Current Weight" >
                     Check Current Weight
                 </Button>
             </View>
             <View>
-                <Text style={{ color: "white", fontWeight: 'bold', fontSize: 80, marginTop: 40, textAlign: "left", borderRadius: 10, padding: 30 }}>Weight :        {y} </Text>
+                <Text style={{ color: "white", fontWeight: 'bold', fontSize: 80, marginTop: 10, textAlign: "left", borderRadius: 10, padding: 30 }}>Steps Taken : {y} </Text>
             </View>
-            <View style={{ alignContent: "center", alignItems: "center", width: "100%", color: "#3cb371", fontWeight: 'bold', fontSize: 24, marginTop: 290, borderRadius: 10, padding: 10 }}>
+            <View style={{ alignContent: "center", alignItems: "center", width: "100%", color: "#3cb371", fontWeight: 'bold', fontSize: 24, marginTop: 230, borderRadius: 10, padding: 10 }}>
                 <Button onPress={() => navigation.navigate('Home')} title="Homepage" >
                     Homepage
                 </Button>
             </View>
         </ImageBackground>
+
     );
 }
 
