@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { TextInput, Modal, Animated, TouchableOpacity, Text, Button, View, StyleSheet, Image, ScrollView, Dimensions, ActivityIndicator } from 'react-native';
+import { TextInput, Modal, Animated, TouchableOpacity, Text, ImageBackground, Button, View, StyleSheet, Image, ScrollView, Dimensions, ActivityIndicator } from 'react-native';
 import auth from '@react-native-firebase/auth';
 import { AuthContext } from '../components/context';
 import { Avatar } from 'react-native-elements';
@@ -19,6 +19,8 @@ import ImagePicker from 'react-native-image-picker';
 import GoogleFit, { Scopes } from 'react-native-google-fit'
 
 const steps = ({ navigation }) => {
+
+    const [y, setY] = useState("");
 
     const showsteps = () => {
 
@@ -49,8 +51,8 @@ const steps = ({ navigation }) => {
                             var resttt = data1["steps"];
                             var curdate = new Date().toISOString();
                             var x = resttt.filter((item) => item.date == curdate.substring(0, 10)).map(({ date, value }) => ({ date, value }));
-                            const str1 = 'Daily Steps >>>' + JSON.stringify(x[0].value);
-                            alert(str1);
+                            const str1 = JSON.stringify(x[0].value);
+                            setY(str1);
                         })
                         .catch((err) => { console.warn(err) });
                 } else {
@@ -64,11 +66,25 @@ const steps = ({ navigation }) => {
 
     return (
 
-        <TouchableOpacity onPress={() => showsteps()}>
-            <Text style={{ marginLeft: 5, borderRadius: 5, padding: 5, backgroundColor: '#9bd494' }}>Display Steps Taken</Text>
-        </TouchableOpacity>
+        <ImageBackground source={require('../images/steps.jpg')} style={styles.image}>
+            <View style={[{ marginTop: 55, height: 48, alignItems: "center", alignContent: "center", width: "60%", margin: 10 }]}>
+                <Button onPress={showsteps} title="Check Steps Taken" >
+                    Check Steps Taken
+                </Button>
+            </View>
+            <View>
+                <Text style={{ fontWeight: 'bold', fontSize: 80, marginTop: 2, textAlign: "right", borderRadius: 10, padding: 30 }}>Steps Taken : {y} </Text>
+            </View>
+            <View style={{ alignContent: "center", alignItems: "center", width: "100%", color: "#3cb371", fontWeight: 'bold', fontSize: 24, marginTop: 300, borderRadius: 10, padding: 10 }}>
+                <Button onPress={() => navigation.navigate('Home')} title="Homepage" >
+                    Homepage
+                </Button>
+            </View>
+        </ImageBackground>
 
     );
+
+
 }
 
 const styles = StyleSheet.create({
@@ -82,9 +98,6 @@ const styles = StyleSheet.create({
     breh: {
         flex: 1,
         width: null,
-    },
-    container: {
-        flex: 1
     },
     header: {
         flex: 1.8,
@@ -126,6 +139,22 @@ const styles = StyleSheet.create({
         borderBottomWidth: 2,
         borderColor: '#d3d7db',
         paddingVertical: 15
+    },
+
+    container: {
+        flex: 1,
+        flexDirection: "column"
+    },
+    image: {
+        flex: 1,
+        resizeMode: "cover",
+    },
+    text: {
+        color: "white",
+        fontSize: 42,
+        fontWeight: "bold",
+        textAlign: "center",
+        backgroundColor: "#000000a0"
     }
 });
 

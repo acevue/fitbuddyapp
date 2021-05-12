@@ -194,7 +194,7 @@ const LoginScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
 
-      <Appbar.Header style={{ backgroundColor: '#00cc99' }}>
+      <Appbar.Header style={{ backgroundColor: '#4169e1' }}>
         <Appbar.Content title="FitBuddy" subtitle="" />
         <Appbar.Action icon="magnify" onPress={_handleSearch} />
         <Appbar.Action icon="dots-vertical" onPress={_handleMore} />
