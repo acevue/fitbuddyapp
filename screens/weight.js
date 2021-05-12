@@ -22,6 +22,29 @@ const weight = ({ navigation }) => {
 
     const [y, setY] = useState("");
 
+    const goog = () => {
+        // The list of available scopes inside of src/scopes.js file
+        const options = {
+
+            scopes: [
+                Scopes.FITNESS_ACTIVITY_READ,
+                Scopes.FITNESS_ACTIVITY_WRITE,
+                Scopes.FITNESS_BODY_READ,
+                Scopes.FITNESS_BODY_WRITE,
+                Scopes.FITNESS_ACTIVITY_READ,
+                Scopes.FITNESS_ACTIVITY_WRITE,
+                Scopes.FITNESS_HEART_RATE_READ,
+                Scopes.FITNESS_HEART_RATE_WRITE,
+                Scopes.FITNESS_BLOOD_PRESSURE_READ,
+                Scopes.FITNESS_BLOOD_PRESSURE_WRITE,
+                Scopes.FITNESS_BLOOD_GLUCOSE_READ,
+                Scopes.FITNESS_BLOOD_GLUCOSE_WRITE,
+            ],
+        }
+
+        GoogleFit.openFit();
+    }
+
     const showweight = () => {
 
         // The list of available scopes inside of src/scopes.js file
@@ -63,15 +86,23 @@ const weight = ({ navigation }) => {
     return (
 
         <ImageBackground source={require('../images/weight.jpg')} style={styles.image}>
-            <View style={[{ marginTop: 135, height: 35, alignItems: "center", alignContent: "center", width: "100%", margin: 10 }]}>
+            <View style={[{ marginTop: 120, height: 15, alignItems: "center", alignContent: "center", width: "100%", margin: 10 }]}>
                 <Button onPress={showweight} title="Check Current Weight" >
                     Check Current Weight
                 </Button>
             </View>
             <View>
-                <Text style={{ color: "white", fontWeight: 'bold', fontSize: 80, marginTop: 10, textAlign: "left", borderRadius: 10, padding: 30 }}>Steps Taken : {y} </Text>
+                <Text style={{ color: "white", fontWeight: 'bold', fontSize: 80, marginTop: 10, textAlign: "left", borderRadius: 10, padding: 10 }}>Weight : {y} </Text>
             </View>
-            <View style={{ alignContent: "center", alignItems: "center", width: "100%", color: "#3cb371", fontWeight: 'bold', fontSize: 24, marginTop: 230, borderRadius: 10, padding: 10 }}>
+            <View style={[{ marginTop: 10, height: 10, alignItems: "center", alignContent: "center", width: "100%", margin: 10 }]}>
+                <Button onPress={goog} title="Open Google Fit" >
+                    Open Google Fit
+                </Button>
+            </View>
+            <View>
+                <Text style={{ color: "white", fontWeight: 'bold', width: "100%", fontSize: 16, marginTop: 10, textAlign: "right", borderRadius: 10, padding: 20 }}>Note: Weight (lbs) can be changed or updated in Google Fit.</Text>
+            </View>
+            <View style={{ alignContent: "center", alignItems: "center", width: "100%", color: "#3cb371", fontWeight: 'bold', fontSize: 24, marginTop: 280, borderRadius: 10, padding: 10 }}>
                 <Button onPress={() => navigation.navigate('Home')} title="Homepage" >
                     Homepage
                 </Button>

@@ -22,6 +22,29 @@ const calories = ({ navigation }) => {
 
     const [z, setZ] = useState("");
 
+    const goog = () => {
+        // The list of available scopes inside of src/scopes.js file
+        const options = {
+
+            scopes: [
+                Scopes.FITNESS_ACTIVITY_READ,
+                Scopes.FITNESS_ACTIVITY_WRITE,
+                Scopes.FITNESS_BODY_READ,
+                Scopes.FITNESS_BODY_WRITE,
+                Scopes.FITNESS_ACTIVITY_READ,
+                Scopes.FITNESS_ACTIVITY_WRITE,
+                Scopes.FITNESS_HEART_RATE_READ,
+                Scopes.FITNESS_HEART_RATE_WRITE,
+                Scopes.FITNESS_BLOOD_PRESSURE_READ,
+                Scopes.FITNESS_BLOOD_PRESSURE_WRITE,
+                Scopes.FITNESS_BLOOD_GLUCOSE_READ,
+                Scopes.FITNESS_BLOOD_GLUCOSE_WRITE,
+            ],
+        }
+
+        GoogleFit.openFit();
+    }
+
     const showcalories = () => {
 
         // The list of available scopes inside of src/scopes.js file
@@ -73,7 +96,12 @@ const calories = ({ navigation }) => {
             <View>
                 <Text style={{ color: "white", fontWeight: 'bold', fontSize: 80, marginTop: 77, textAlign: "right", borderRadius: 10, padding: 30 }}>Calories Burned : {z}</Text>
             </View>
-            <View style={{ alignContent: "center", alignItems: "center", width: "100%", color: "#3cb371", fontWeight: 'bold', fontSize: 24, marginTop: 220, borderRadius: 10, padding: 10 }}>
+            <View style={[{ marginTop: 55, height: 48, alignItems: "center", alignContent: "center", width: "95%", margin: 10 }]}>
+                <Button onPress={goog} title="Open Google Fit" >
+                    Open Google Fit
+                </Button>
+            </View>
+            <View style={{ alignContent: "center", alignItems: "center", width: "100%", color: "#3cb371", fontWeight: 'bold', fontSize: 24, marginTop: 90, borderRadius: 10, padding: 10 }}>
                 <Button onPress={() => navigation.navigate('Home')} title="Homepage" >
                     Homepage
                 </Button>

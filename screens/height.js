@@ -22,6 +22,29 @@ const height = ({ navigation }) => {
 
     const [y, setY] = useState("");
 
+    const goog = () => {
+        // The list of available scopes inside of src/scopes.js file
+        const options = {
+
+            scopes: [
+                Scopes.FITNESS_ACTIVITY_READ,
+                Scopes.FITNESS_ACTIVITY_WRITE,
+                Scopes.FITNESS_BODY_READ,
+                Scopes.FITNESS_BODY_WRITE,
+                Scopes.FITNESS_ACTIVITY_READ,
+                Scopes.FITNESS_ACTIVITY_WRITE,
+                Scopes.FITNESS_HEART_RATE_READ,
+                Scopes.FITNESS_HEART_RATE_WRITE,
+                Scopes.FITNESS_BLOOD_PRESSURE_READ,
+                Scopes.FITNESS_BLOOD_PRESSURE_WRITE,
+                Scopes.FITNESS_BLOOD_GLUCOSE_READ,
+                Scopes.FITNESS_BLOOD_GLUCOSE_WRITE,
+            ],
+        }
+
+        GoogleFit.openFit();
+    }
+
     const showheight = () => {
 
         // The list of available scopes inside of src/scopes.js file
@@ -67,7 +90,15 @@ const height = ({ navigation }) => {
             <View>
                 <Text style={{ color: "white", fontWeight: 'bold', fontSize: 80, marginTop: 40, textAlign: "left", borderRadius: 10, padding: 30 }}>Height (meters) : {y} </Text>
             </View>
-            <View style={{ alignContent: "center", alignItems: "center", width: "100%", color: "#3cb371", fontWeight: 'bold', fontSize: 24, marginTop: 240, borderRadius: 10, padding: 10 }}>
+            <View style={[{ marginTop: 55, height: 48, alignItems: "center", alignContent: "center", width: "60%", margin: 10 }]}>
+                <Button onPress={goog} title="Open Google Fit" >
+                    Open Google Fit
+                </Button>
+            </View>
+            <View>
+                <Text style={{ color: "white", fontWeight: 'bold', width: "70%", fontSize: 18, marginTop: 10, textAlign: "left", borderRadius: 10, padding: 20 }}>Note: Height (meters) can be changed or updated in Google Fit.</Text>
+            </View>
+            <View style={{ alignContent: "center", alignItems: "center", width: "100%", color: "#3cb371", fontWeight: 'bold', fontSize: 24, marginTop: 76, borderRadius: 10, padding: 10 }}>
                 <Button onPress={() => navigation.navigate('Home')} title="Homepage" >
                     Homepage
                 </Button>
