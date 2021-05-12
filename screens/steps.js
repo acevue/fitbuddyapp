@@ -75,7 +75,7 @@ const steps = ({ navigation }) => {
             <View>
                 <Text style={{ fontWeight: 'bold', fontSize: 80, marginTop: 40, textAlign: "right", borderRadius: 10, padding: 30 }}>Steps Taken : {y} </Text>
             </View>
-            <View style={{ alignContent: "center", alignItems: "center", width: "100%", color: "#3cb371", fontWeight: 'bold', fontSize: 24, marginTop: 320, borderRadius: 10, padding: 10 }}>
+            <View style={{ alignContent: "center", alignItems: "center", width: "100%", color: "#3cb371", fontWeight: 'bold', fontSize: 24, marginTop: 260, borderRadius: 10, padding: 10 }}>
                 <Button onPress={() => navigation.navigate('Home')} title="Homepage" >
                     Homepage
                 </Button>
