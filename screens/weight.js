@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { TextInput, Modal, Animated, TouchableOpacity, Text, Button, View, StyleSheet, Image, ScrollView, Dimensions, ActivityIndicator } from 'react-native';
+import { TextInput, Modal, Animated, ImageBackground, TouchableOpacity, Text, Button, View, StyleSheet, Image, ScrollView, Dimensions, ActivityIndicator } from 'react-native';
 import auth from '@react-native-firebase/auth';
 import { AuthContext } from '../components/context';
 import { Avatar } from 'react-native-elements';
@@ -19,6 +19,8 @@ import ImagePicker from 'react-native-image-picker';
 import GoogleFit, { Scopes } from 'react-native-google-fit'
 
 const weight = ({ navigation }) => {
+
+    const [y, setY] = useState("");
 
     const showweight = () => {
 
@@ -45,8 +47,8 @@ const weight = ({ navigation }) => {
                     };
 
                     GoogleFit.getWeightSamples(opt).then((res) => {
-                        const str1 = 'Current Weight >>>' + JSON.stringify(res[0].value).substring(0, 5) + " lbs";
-                        alert(str1);
+                        const str1 = JSON.stringify(res[0].value).substring(0, 5) + " lbs";
+                        setY(str1);
                     });
 
                 } else {
@@ -60,10 +62,21 @@ const weight = ({ navigation }) => {
 
     return (
 
-        <TouchableOpacity onPress={() => showweight()}>
-            <Text style={{ marginLeft: 5, borderRadius: 5, padding: 5, backgroundColor: '#9bd494' }}>Display Current Weight</Text>
-        </TouchableOpacity>
-
+        <ImageBackground source={require('../images/weight.jpg')} style={styles.image}>
+            <View style={[{ marginTop: 110, height: 48, alignItems: "center", alignContent: "center", width: "100%", margin: 10 }]}>
+                <Button onPress={showweight} title="Check Current Weight" >
+                    Check Current Weight
+                </Button>
+            </View>
+            <View>
+                <Text style={{ color: "white", fontWeight: 'bold', fontSize: 80, marginTop: 40, textAlign: "left", borderRadius: 10, padding: 30 }}>Weight :        {y} </Text>
+            </View>
+            <View style={{ alignContent: "center", alignItems: "center", width: "100%", color: "#3cb371", fontWeight: 'bold', fontSize: 24, marginTop: 290, borderRadius: 10, padding: 10 }}>
+                <Button onPress={() => navigation.navigate('Home')} title="Homepage" >
+                    Homepage
+                </Button>
+            </View>
+        </ImageBackground>
     );
 }
 
@@ -78,9 +91,6 @@ const styles = StyleSheet.create({
     breh: {
         flex: 1,
         width: null,
-    },
-    container: {
-        flex: 1
     },
     header: {
         flex: 1.8,
@@ -122,6 +132,22 @@ const styles = StyleSheet.create({
         borderBottomWidth: 2,
         borderColor: '#d3d7db',
         paddingVertical: 15
+    },
+
+    container: {
+        flex: 1,
+        flexDirection: "column"
+    },
+    image: {
+        flex: 1,
+        resizeMode: "cover",
+    },
+    text: {
+        color: "white",
+        fontSize: 42,
+        fontWeight: "bold",
+        textAlign: "center",
+        backgroundColor: "#000000a0"
     }
 });
 
