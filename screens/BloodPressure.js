@@ -73,12 +73,23 @@ const BloodPressure = ({ navigation }) => {
             bucketInterval: 1, // optional - default 1. 
         }
 
-        GoogleFit.getBloodPressureSamples(opt)
-            .then((res) => {
-                const str1 = JSON.stringify(res[res.length - 1].systolic).substring(0, 3) + '/' + JSON.stringify(res[res.length - 1].diastolic).substring(0, 5) + " mmHg";
-                setY(str1);
+        GoogleFit.authorize(options)
+            .then(authResult => {
+                if (authResult.success) {
+                    GoogleFit.getBloodPressureSamples(opt)
+                        .then((res) => {
+                            const indx = res.length - 1;
+                            const str1 = JSON.stringify(res[indx].systolic).substring(0, 3) + '/' + JSON.stringify(res[indx].diastolic).substring(0, 5) + " mmHg";
+                            setY(str1);
+                        })
+                        .catch((err) => { console.warn(err) });
+                } else {
+                    alert("AUTH_DENIED", authResult.message);
+                }
             })
-            .catch((err) => { console.warn(err) });
+            .catch(() => {
+                alert("AUTH_ERROR");
+            })
     }
 
     return (
