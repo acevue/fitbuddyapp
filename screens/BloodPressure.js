@@ -75,7 +75,7 @@ const BloodPressure = ({ navigation }) => {
 
         GoogleFit.getBloodPressureSamples(opt)
             .then((res) => {
-                const str1 = JSON.stringify(res[0].systolic).substring(0, 3) + '/' + JSON.stringify(res[0].diastolic).substring(0, 5) + " mmHg";
+                const str1 = JSON.stringify(res[res.length - 1].systolic).substring(0, 3) + '/' + JSON.stringify(res[res.length - 1].diastolic).substring(0, 5) + " mmHg";
                 setY(str1);
             })
             .catch((err) => { console.warn(err) });

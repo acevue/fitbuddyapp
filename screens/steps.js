@@ -72,8 +72,14 @@ const steps = ({ navigation }) => {
                         .then((res) => {
                             var data1 = res[1];
                             var resttt = data1["steps"];
-                            var curdate = new Date().toISOString();
-                            var x = resttt.filter((item) => item.date == curdate.substring(0, 10)).map(({ date, value }) => ({ date, value }));
+                            var curyear = new Date().getUTCFullYear();
+                            var curmonth = new Date().getMonth() + 1;
+                            if (curmonth < 10) {
+                                curmonth = '0' + JSON.stringify(curmonth);
+                            }
+                            var curday = new Date().getDate();
+                            var curdate = JSON.stringify(curyear) + '-' + curmonth + '-' + JSON.stringify(curday);
+                            var x = resttt.filter((item) => item.date == curdate).map(({ date, value }) => ({ date, value }));
                             const str1 = JSON.stringify(x[0].value);
                             setY(str1);
                         })
